@@ -5,11 +5,17 @@ class Review {
 
   Review({required this.id, required this.message, required this.rating});
 
-   Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'messsage': message,
       'rating': rating,
     };
   }
+
+  factory Review.fromJson(Map<String, dynamic> map) => Review(
+        id: map['id'],
+        message: map['message'],
+        rating: map['rating'],
+      );
 }
