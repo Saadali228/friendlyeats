@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:friendlyeats/data_layer/models/products.dart';
 import 'package:meta/meta.dart';
 
 part 'product_event.dart';
