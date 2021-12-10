@@ -1,0 +1,29 @@
+
+
+// List<Product> productList = [
+//   Product(id: 1, name: 'Fried Rice', price: 100, rating: 3),
+//   Product(id: 2, name: 'Fried Rice', price: 100, rating: 3),
+//   Product(id: 3, name: 'Fried Rice', price: 100, rating: 3),
+//   Product(id: 4, name: 'Fried Rice', price: 100, rating: 3),
+//   Product(id: 5, name: 'Fried Rice', price: 100, rating: 3),
+//   Product(id: 6, name: 'Fried Rice', price: 100, rating: 3),
+// ];
+// List<Review> reviewList = [
+//   Review(id: 1, message: 'Fried Rice', rating: 3),
+//   Review(id: 2, message: 'Fried Rice', rating: 3),
+//   Review(id: 3, message: 'Fried Rice', rating: 3),
+//   Review(id: 4, message: 'Fried Rice', rating: 3),
+//   Review(id: 5, message: 'Fried Rice', rating: 3),
+//   Review(id: 6, message: 'Fried Rice', rating: 3),
+// ];
+
+
+[
+  {
+    "id": 1,
+    "name": ""
+  },
+  {
+    
+  }
+]
