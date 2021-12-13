@@ -10,12 +10,12 @@ class ProductInitial extends ProductState {}
 
 class ProductLoading extends ProductState {}
 
-class ProductLoadSuccess extends ProductState {
-  final Product? product;
+class ProductLoaded extends ProductState {
+  final List<Product> productList;
 
-  ProductLoadSuccess(this.product) : assert(product != null);
+  ProductLoaded(this.productList);
   @override
-  List<Object> get props => [product!];
+  List<Object> get props => [productList];
 }
 
-class ProductLoadFailure extends ProductState {}
+class ProductError extends ProductState {}

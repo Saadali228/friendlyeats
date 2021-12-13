@@ -22,10 +22,10 @@ class Repository {
     return _reviewsList;
   }
 
-  Future<void> addReview(String message, int rating) async {
-    final _reviewList = _dataProvider.getReviews() as List<Review>;
-    int id = _reviewList.length + 1;
-    await _dataProvider.addReview(id, message, rating);
+  Future<void> addReview(Review review) async {
+    // final _reviewList = _dataProvider.getReviews() as List<Review>;
+    // int id = _reviewList.length + 1;
+    await _dataProvider.addReview(review);
   }
 
   Future<void> addToCart(

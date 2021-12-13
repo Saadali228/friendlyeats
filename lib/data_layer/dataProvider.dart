@@ -1,9 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'package:friendlyeats/data_layer/models/cart.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'models/products.dart';
 import 'models/reviews.dart';
 
@@ -26,38 +23,23 @@ class DataProvider {
     return list;
   }
 
-  Future<void> addReview(int id, String message, int rating) async {
+  Future<void> addReview(Review review) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userPref = prefs.getString('reviewList');
     if (userPref != null) {
       final map = json.decode(userPref) as List;
       final reviewList = map.map((e) => Review.fromJson(e)).toList();
-      reviewList.add(Review(
-        id: id,
-        message: message,
-        rating: rating,
-      ));
+      reviewList.add(review);
       final reviewJson = reviewList.map((e) => e.toJson());
       var encodedList = json.encode(reviewJson);
       await prefs.setString('reviewList', encodedList);
     } else {
       List<Review> reviewList = [];
-      reviewList.add(Review(
-        id: id,
-        message: message,
-        rating: rating,
-      ));
+      reviewList.add(review);
       final reviewJson = reviewList.map((e) => e.toJson());
       var encodedList = json.encode(reviewJson);
       await prefs.setString('reviewList', encodedList);
     }
-    final map = {
-      "id": id,
-      "message": message,
-      "rating": rating,
-    };
-    var encodedList = json.encode(map);
-    await prefs.setString('reviewList', encodedList);
   }
 
   Future<List<Review>> getReviews() async {
