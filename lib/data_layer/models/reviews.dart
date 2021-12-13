@@ -8,7 +8,7 @@ class Review {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'messsage': message,
+      'message': message,
       'rating': rating,
     };
   }
