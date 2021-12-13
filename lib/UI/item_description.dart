@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:friendlyeats/item.dart';
+import 'package:friendlyeats/UI/item.dart';
 
 class ItemDescription extends StatelessWidget {
   final Item item;
@@ -25,19 +25,20 @@ class ItemDescription extends StatelessWidget {
                       Navigator.pop(context);
                     },
                     child: Container(
-                        width: 45,
-                        height: 45,
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(15),
-                          ),
+                      width: 45,
+                      height: 45,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(15),
                         ),
-                        child: const Icon(
-                          Icons.keyboard_arrow_left,
-                          color: Colors.black,
-                          size: 28,
-                        )),
+                      ),
+                      child: const Icon(
+                        Icons.keyboard_arrow_left,
+                        color: Colors.black,
+                        size: 28,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -79,13 +80,13 @@ class ItemDescription extends StatelessWidget {
                           color: Colors.black,
                         ),
                       ),
-                      Text(
-                        item.priceDescription,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          color: Colors.grey,
-                        ),
-                      ),
+                      // Text(
+                      //   item.priceDescription,
+                      //   style: const TextStyle(
+                      //     fontSize: 18,
+                      //     color: Colors.grey,
+                      //   ),
+                      // ),
                       const SizedBox(
                         height: 24.0,
                       ),
@@ -139,92 +140,76 @@ class ItemDescription extends StatelessWidget {
                                   )),
                             ],
                           ),
-                          Text(
-                            r"$ " + item.price,
-                            style: const TextStyle(
-                              fontSize: 36,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 24.0,
-                      ),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          physics: const BouncingScrollPhysics(),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: <Widget>[
-                              const Text(
-                                "Product description",
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
+                          Column(
+                            children: [
                               Text(
-                                item.description,
+                                r"$ " + item.price,
                                 style: const TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 36,
+                                  fontWeight: FontWeight.bold,
                                   color: Colors.black,
                                 ),
                               ),
                             ],
                           ),
+                        ],
+                      ),
+                      // const SizedBox(
+                      //   height: 24.0,
+                      // ),
+                      SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              children: [
+                                Container(
+                                  width: 300,
+                                  height: 70,
+                                  decoration: BoxDecoration(
+                                    color: item.color,
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(20),
+                                    ),
+                                  ),
+                                  child: const Center(
+                                    child: Text("Add to cart",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                        )),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 50,
+                                ),
+                                Container(
+                                  width: 300,
+                                  height: 70,
+                                  decoration: BoxDecoration(
+                                    color: item.color,
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(20),
+                                    ),
+                                  ),
+                                  child: const Center(
+                                    child: Text(
+                                      "Add Review",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                      const SizedBox(
-                        height: 24.0,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            height: 72,
-                            width: 72,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(20),
-                              ),
-                              border: Border.all(
-                                color: item.color,
-                                width: 2,
-                              ),
-                            ),
-                            child: Icon(
-                              Icons.favorite,
-                              color: item.color,
-                              size: 36,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 16,
-                          ),
-                          Expanded(
-                            child: Container(
-                              height: 72,
-                              decoration: BoxDecoration(
-                                color: item.color,
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(20),
-                                ),
-                              ),
-                              child: const Center(
-                                child: Text("Add to cart",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                    )),
-                              ),
-                            ),
-                          )
-                        ],
-                      )
                     ],
                   ),
                 ),

@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:friendlyeats/item.dart';
-import 'package:friendlyeats/item_description.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:friendlyeats/UI/item.dart';
+import 'package:friendlyeats/UI/item_description.dart';
+import 'package:friendlyeats/bloc/Cart/bloc/cart_bloc.dart';
+import 'package:friendlyeats/bloc/Product/bloc/product_bloc.dart';
+import 'package:friendlyeats/bloc/Review/bloc/review_bloc.dart';
+import 'package:friendlyeats/data_layer/dataProvider.dart';
+import 'package:friendlyeats/repository/repostory.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
-  runApp(const MyApp());
+  DataProvider _dataProvider = DataProvider();
+  Repository repository = Repository(_dataProvider);
+  runApp(
+    RepositoryProvider.value(
+      value: repository,
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -12,15 +25,34 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        textTheme: GoogleFonts.poppinsTextTheme(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ProductBloc(
+            RepositoryProvider.of(context),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => CartBloc(
+            RepositoryProvider.of(context),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => ReviewBloc(
+            RepositoryProvider.of(context),
+          ),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'FriendlyEats',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          textTheme: GoogleFonts.poppinsTextTheme(),
+        ),
+        debugShowCheckedModeBanner: false,
+        home: const MyHomePage(),
       ),
-      debugShowCheckedModeBanner: false,
-      home: const MyHomePage(),
     );
   }
 }
@@ -37,63 +69,36 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 24.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-
-                    Container(
-                        width: 45,
-                        height: 45,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(15),
-                          ),
-                        ),
-                        child: const Icon(
-                          Icons.keyboard_arrow_left,
-                          color: Colors.black,
-                          size: 28,
-                        )
-                    ),
-
-                    const Icon(
-                      Icons.filter_list,
+      body: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const <Widget>[
+                  Text(
+                    "FriendlyEats",
+                    style: TextStyle(
                       color: Colors.black,
-                      size: 28,
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
-                ),
+                  ),
+                  Icon(
+                    Icons.shopping_cart,
+                    color: Colors.black,
+                    size: 28,
+                  ),
+                ],
               ),
-
-              const SizedBox(
-                height: 24.0,
-              ),
-
-              const Text(
-                "Fruits and berries",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 36,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-
-              const SizedBox(
-                height: 16.0,
-              ),
-
-              TextField(
+            ),
+            SizedBox(
+              width: 300,
+              child: TextField(
                 decoration: InputDecoration(
                   hintText: 'Search',
                   hintStyle: const TextStyle(fontSize: 16),
@@ -117,30 +122,31 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-
-              const SizedBox(
-                height: 16.0,
+            ),
+            const SizedBox(
+              height: 16.0,
+            ),
+            const SizedBox(
+              height: 16.0,
+            ),
+            Expanded(
+              child: GridView.count(
+                physics: const BouncingScrollPhysics(),
+                childAspectRatio: 1.3 / 1.5,
+                crossAxisCount: 4,
+                crossAxisSpacing: 30,
+                mainAxisSpacing: 20,
+                children:
+                    getGridItems().map((item) => renderGridItem(item)).toList(),
               ),
-
-              Expanded(
-                child: GridView.count(
-                  physics: const BouncingScrollPhysics(),
-                  childAspectRatio: 1 / 1.5,
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
-                  children: getGridItems().map((item) => renderGridItem(item)).toList(),
-                ),
-              ),
-
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget renderGridItem(Item item){
+  Widget renderGridItem(Item item) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -161,7 +167,6 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-
               Text(
                 item.title,
                 textAlign: TextAlign.left,
@@ -171,7 +176,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
@@ -184,24 +188,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(
-                    width: 8.0,
-                  ),
-                  Text(
-                    item.priceDescription,
-                    textAlign: TextAlign.left,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                    ),
-                  ),
                 ],
               ),
-
               const SizedBox(
                 height: 8.0,
               ),
-
               Expanded(
                 child: Hero(
                   tag: item.title,
@@ -210,11 +201,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-
               const SizedBox(
                 height: 8.0,
               ),
-
               Container(
                   decoration: BoxDecoration(
                     color: Colors.black.withOpacity(0.1),
@@ -246,9 +235,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         )
                       ],
                     ),
-                  )
-              )
-
+                  ))
             ],
           ),
         ),
