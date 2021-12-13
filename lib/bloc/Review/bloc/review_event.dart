@@ -9,8 +9,6 @@ class FetchReview extends ReviewEvent {
 }
 
 class AddReview extends ReviewEvent {
-  // final String message;
-  // final int rating;
   final Review review;
   AddReview(this.review);
   @override

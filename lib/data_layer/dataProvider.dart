@@ -26,6 +26,7 @@ class DataProvider {
   Future<void> addReview(Review review) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userPref = prefs.getString('reviewList');
+
     if (userPref != null) {
       final map = json.decode(userPref) as List;
       final reviewList = map.map((e) => Review.fromJson(e)).toList();
@@ -50,22 +51,19 @@ class DataProvider {
     return list;
   }
 
-  Future<void> addToCart(
-      int id, String name, double price, int qty, int rating) async {
+  Future<void> addToCart(Product product) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userPref = prefs.getString('cartList');
     if (userPref != null) {
       final map = json.decode(userPref) as List;
       final cartList = map.map((e) => Product.fromJson(e)).toList();
-      cartList.add(
-          Product(id: id, name: name, price: price, qty: qty, rating: rating));
+      cartList.add(product);
       final carJson = cartList.map((e) => e.toJson());
       var encodedList = json.encode(carJson);
       await prefs.setString('cartList', encodedList);
     } else {
       List<Product> cartList = [];
-      cartList.add(
-          Product(id: id, name: name, price: price, qty: qty, rating: rating));
+      cartList.add(product);
       final carJson = cartList.map((e) => e.toJson());
       var encodedList = json.encode(carJson);
       await prefs.setString('cartList', encodedList);
@@ -80,28 +78,29 @@ class DataProvider {
     return list;
   }
 
-  Future<void> deleteProductFromCart(int id) async {
+  Future<void> deleteProductFromCart(Product product) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userPref = prefs.getString('cartList');
     if (userPref != null) {
       final map = json.decode(userPref) as List;
       final cartList = map.map((e) => Product.fromJson(e)).toList();
-      cartList.removeWhere((element) => element.id == id);
+      cartList.remove(product);
       final carJson = cartList.map((e) => e.toJson());
       var encodedList = json.encode(carJson);
       await prefs.setString('cartList', encodedList);
     }
   }
 
-  Future<void> updateCartProduct(int pid, int qty, bool isAdd) async {
+  Future<void> updateCartProduct(Product product, bool isAdd) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userPref = prefs.getString('cartList');
     if (userPref != null) {
       final map = json.decode(userPref) as List;
       final cartList = map.map((e) => Product.fromJson(e)).toList();
-      final id = cartList.indexWhere((element) => element.id == pid);
-      if (isAdd) cartList[id].qty++;
-      if (!isAdd) cartList[id].qty--;
+      int index = cartList.indexOf(product);
+      // final id = cartList.indexWhere((element) => element.id == pid);
+      if (isAdd) cartList[index].qty++;
+      if (!isAdd) cartList[index].qty--;
       final carJson = cartList.map((e) => e.toJson());
       var encodedList = json.encode(carJson);
       await prefs.setString('cartList', encodedList);

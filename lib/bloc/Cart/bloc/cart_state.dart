@@ -1,26 +1,19 @@
 part of 'cart_bloc.dart';
 
-@immutable
-abstract class CartState extends Equatable {
-  @override
-  List<Object> get props => [];
-}
+enum CartStatus { initial, loading, loaded, error }
 
-class CartInitial extends CartState {}
-
-class CartLoading extends CartState {}
-
-class CartProductUpdate extends CartState {}
-
-class CartProductDelete extends CartState {}
-
-class CartLoaded extends CartState {
+class CartState {
+  final CartStatus cartStatus;
   final List<Product> cartList;
+  CartState({
+    this.cartStatus = CartStatus.initial,
+    this.cartList = const [],
+  });
+  CartState copyWith({CartStatus? cartStatus, List<Product>? cartList}) {
+    return CartState(
+        cartList: cartList ?? this.cartList,
+        cartStatus: cartStatus ?? this.cartStatus);
+  }
 
-  CartLoaded(this.cartList);
-  @override
-  List<Object> get props => [cartList];
+  List<Object> get props => [cartStatus, cartList];
 }
-
-class CartError extends CartState {}
-

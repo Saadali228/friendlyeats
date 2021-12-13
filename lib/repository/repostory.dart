@@ -28,9 +28,8 @@ class Repository {
     await _dataProvider.addReview(review);
   }
 
-  Future<void> addToCart(
-      int id, String name, double price, int qty, int rating) async {
-    await _dataProvider.addToCart(id, name, price, qty, rating);
+  Future<void> addToCart(Product product) async {
+    await _dataProvider.addToCart(product);
   }
 
   Future<List<Product>> getCartProducts() async {
@@ -38,11 +37,11 @@ class Repository {
     return list;
   }
 
-  Future<void> deleteProductFromCart(int id) async {
-    await _dataProvider.deleteProductFromCart(id);
+  Future<void> deleteProductFromCart(Product product) async {
+    await _dataProvider.deleteProductFromCart(product);
   }
 
-  Future<void> updateCartProduct(int pid, int qty, bool isAdd) async {
-    await _dataProvider.updateCartProduct(pid, qty, isAdd);
+  Future<void> updateCartProduct(Product product, bool isAdd) async {
+    await _dataProvider.updateCartProduct(product, isAdd);
   }
 }

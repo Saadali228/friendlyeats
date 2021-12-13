@@ -26,12 +26,12 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
       emit(state.copyWith(reviewStatus: ReviewStatus.loading));
       try {
         await repository.addReview(event.review);
-        final a = state.reviewList;
-        a.add(event.review);
+        final newReviewList = state.reviewList;
+        newReviewList.add(event.review);
         emit(
           state.copyWith(
             reviewStatus: ReviewStatus.loaded,
-            reviewList: a,
+            reviewList: newReviewList,
           ),
         );
       } catch (_) {
