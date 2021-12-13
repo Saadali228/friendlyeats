@@ -1,21 +1,20 @@
 part of 'product_bloc.dart';
 
-@immutable
-abstract class ProductState extends Equatable {
-  @override
-  List<Object> get props => [];
-}
+enum ProductStatus { initial, loading, loaded, error }
 
-class ProductInitial extends ProductState {}
-
-class ProductLoading extends ProductState {}
-
-class ProductLoaded extends ProductState {
+class ProductState {
+  final ProductStatus productState;
   final List<Product> productList;
+  ProductState({
+    this.productState = ProductStatus.initial,
+    this.productList = const [],
+  });
+  ProductState copyWith(
+      {ProductStatus? productState, List<Product>? productList}) {
+    return ProductState(
+        productList: productList ?? this.productList,
+        productState: productState ?? this.productState);
+  }
 
-  ProductLoaded(this.productList);
-  @override
-  List<Object> get props => [productList];
+  List<Object> get props => [productState, productList];
 }
-
-class ProductError extends ProductState {}

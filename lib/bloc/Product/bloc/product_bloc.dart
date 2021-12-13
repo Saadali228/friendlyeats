@@ -9,18 +9,27 @@ part 'product_state.dart';
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final Repository repositoryProvider;
-  ProductBloc(this.repositoryProvider) : super(ProductInitial()) {
+  ProductBloc(this.repositoryProvider) : super(ProductState()) {
     on<FetchProduct>((event, emit) async {
-      emit(ProductLoading());
+      emit(
+        state.copyWith(
+          productState: ProductStatus.loading,
+        ),
+      );
       try {
         final productList = await repositoryProvider.getProducts();
-        emit(ProductLoaded(productList));
+        emit(state.copyWith(
+            productState: ProductStatus.loaded, productList: productList));
       } catch (_) {
-        emit(ProductError());
+        emit(
+          state.copyWith(
+            productState: ProductStatus.error,
+          ),
+        );
       }
     });
-    on(<ProductDetail>(event, emit) async {
-      emit(ProductLoading());
-    });
+    // on(<ProductDetail>(event, emit) async {
+    //   emit(ProductLoading());
+    // });
   }
 }
