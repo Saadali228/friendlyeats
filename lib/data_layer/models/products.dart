@@ -2,8 +2,9 @@ class Product {
   final int id;
   final String name;
   final double price;
-   int qty;
+  int qty;
   final int rating;
+  final String photoUrl;
 
   Product({
     required this.id,
@@ -11,6 +12,7 @@ class Product {
     required this.price,
     required this.rating,
     this.qty = 1,
+    required this.photoUrl,
   });
 
   Map<String, dynamic> toJson() {
@@ -29,5 +31,6 @@ class Product {
         price: map['price'],
         qty: map['qty'],
         rating: map['rating'],
+        photoUrl: map['photoUrl'],
       );
 }
