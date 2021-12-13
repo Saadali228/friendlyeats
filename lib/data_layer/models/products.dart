@@ -2,6 +2,7 @@ class Product {
   final int id;
   final String name;
   final double price;
+   int qty;
   final int rating;
 
   Product({
@@ -9,6 +10,7 @@ class Product {
     required this.name,
     required this.price,
     required this.rating,
+    this.qty = 1,
   });
 
   Map<String, dynamic> toJson() {
@@ -17,6 +19,7 @@ class Product {
       'name': name,
       'price': price,
       'rating': rating,
+      'qty': qty,
     };
   }
 
@@ -24,6 +27,7 @@ class Product {
         id: map['id'],
         name: map['name'],
         price: map['price'],
+        qty: map['qty'],
         rating: map['rating'],
       );
 }
