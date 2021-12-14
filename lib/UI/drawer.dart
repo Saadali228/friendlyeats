@@ -20,6 +20,9 @@ class CustomDrawer extends StatelessWidget {
           builder: (context, state) {
             switch (state.cartStatus) {
               case CartStatus.initial:
+                context.read<CartBloc>().add(
+                      DisplayProducts(),
+                    );
                 return const CartInitial();
               case CartStatus.loading:
                 return const CartLoading();

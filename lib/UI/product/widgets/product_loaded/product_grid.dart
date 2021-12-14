@@ -77,6 +77,7 @@ class ProductGrid extends StatelessWidget {
               ),
               BlocListener<CartBloc, CartState>(
                 listener: (context, state) {
+                  print(state);
                   Scaffold.of(context).showSnackBar(
                   state.cartStatus == CartStatus.loaded
                         ? const SnackBar(
