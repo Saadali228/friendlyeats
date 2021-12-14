@@ -55,13 +55,13 @@ class DataProvider {
       final map = json.decode(userPref) as List;
       final cartList = map.map((e) => Product.fromJson(e)).toList();
       cartList.add(product);
-      final carJson = cartList.map((e) => e.toJson());
+      final carJson = cartList.map((e) => e.toJson()).toList();
       var encodedList = json.encode(carJson);
       await prefs.setString('cartList', encodedList);
     } else {
       List<Product> cartList = [];
       cartList.add(product);
-      final carJson = cartList.map((e) => e.toJson());
+      final carJson = cartList.map((e) => e.toJson()).toList();
       var encodedList = json.encode(carJson);
       await prefs.setString('cartList', encodedList);
     }
@@ -82,7 +82,13 @@ class DataProvider {
       final map = json.decode(userPref) as List;
       final cartList = map.map((e) => Product.fromJson(e)).toList();
       cartList.remove(product);
-      final carJson = cartList.map((e) => e.toJson());
+      final carJson = cartList.map((e) => e.toJson()).toList();
+      var encodedList = json.encode(carJson);
+      await prefs.setString('cartList', encodedList);
+    } else {
+      List<Product> cartList = [];
+      cartList.remove(product);
+      final carJson = cartList.map((e) => e.toJson()).toList();
       var encodedList = json.encode(carJson);
       await prefs.setString('cartList', encodedList);
     }

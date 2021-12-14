@@ -4,14 +4,16 @@ import 'package:friendlyeats/bloc/Cart/bloc/cart_bloc.dart';
 import 'package:friendlyeats/data_layer/models/products.dart';
 
 class ProductGrid extends StatelessWidget {
-  const ProductGrid({Key? key, required this.item}) : super(key: key);
+  const ProductGrid({Key? key, required this.item,required this.onAddToCart}) : super(key: key);
   final Product item;
+  final Function() onAddToCart;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {},
       child: Container(
+       // color: item.color,
         decoration: const BoxDecoration(
           // color: item.color,
           borderRadius: BorderRadius.all(
@@ -75,24 +77,8 @@ class ProductGrid extends StatelessWidget {
               const SizedBox(
                 height: 8.0,
               ),
-              BlocListener<CartBloc, CartState>(
-                listener: (context, state) {
-                  print(state);
-                  Scaffold.of(context).showSnackBar(
-                  state.cartStatus == CartStatus.loaded
-                        ? const SnackBar(
-                      content: Text('Item Added'),
-                      duration: Duration(milliseconds: 300),
-                    )
-                        : const SnackBar(
-                      content: Text('Item Not Added'),
-                      duration: Duration(milliseconds: 300),
-                    ),
-                  );
-                },
-                child: InkWell(
-                  onTap: () =>
-                      BlocProvider.of<CartBloc>(context).add(AddProduct(item),),
+              InkWell(
+                  onTap: onAddToCart,
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.black.withOpacity(0.1),
@@ -127,7 +113,6 @@ class ProductGrid extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
             ],
           ),
         ),

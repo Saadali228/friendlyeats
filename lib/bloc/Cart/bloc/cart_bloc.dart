@@ -27,17 +27,19 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
     on<AddProduct>((event, emit) async {
       emit(
-        state.copyWith(cartStatus: CartStatus.loading),
+        state.copyWith(addToCartStatus: AddToCartStatus.loading),
       );
       try {
         await repository.addToCart(event.product);
-        final newCartList = state.cartList;
+        List<Product> newCartList = [];
+        state.cartList.map((e) => newCartList.add(e)).toList();
         newCartList.add(event.product);
         emit(
-          state.copyWith(cartList: newCartList, cartStatus: CartStatus.loaded),
+          state.copyWith(
+              cartList: newCartList, addToCartStatus: AddToCartStatus.loaded),
         );
       } catch (_) {
-        emit(state.copyWith(cartStatus: CartStatus.error));
+        emit(state.copyWith(addToCartStatus: AddToCartStatus.error));
       }
     });
 
