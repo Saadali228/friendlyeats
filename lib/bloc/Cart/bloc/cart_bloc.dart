@@ -40,6 +40,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         emit(state.copyWith(cartStatus: CartStatus.error));
       }
     });
+
     on<IncrementQuantity>((event, emit) async {
       emit(
         state.copyWith(cartStatus: CartStatus.loading),
@@ -56,6 +57,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         emit(state.copyWith(cartStatus: CartStatus.error));
       }
     });
+
     on<DecrementQuantity>((event, emit) async {
       emit(
         state.copyWith(cartStatus: CartStatus.loading),
@@ -72,6 +74,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         emit(state.copyWith(cartStatus: CartStatus.error));
       }
     });
+
     on<DeleteProduct>((event, emit) async {
       emit(
         state.copyWith(cartStatus: CartStatus.loading),

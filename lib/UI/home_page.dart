@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:friendlyeats/UI/drawer.dart';
 import 'package:friendlyeats/UI/item.dart';
 import 'package:friendlyeats/UI/item_description.dart';
 import 'package:friendlyeats/UI/product/widgets/product_error.dart';
 import 'package:friendlyeats/UI/product/widgets/product_initial.dart';
-import 'package:friendlyeats/UI/product/widgets/product_loaded.dart';
+import 'package:friendlyeats/UI/product/widgets/product_loaded/product_loaded.dart';
 import 'package:friendlyeats/UI/product/widgets/product_loading.dart';
 import 'package:friendlyeats/bloc/Product/bloc/product_bloc.dart';
 import 'package:friendlyeats/data_layer/models/products.dart';
 
-class MyHomePage extends StatefulWidget {
+var scaffoldKey = GlobalKey<ScaffoldState>();
+
+class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
+      endDrawer: const CustomDrawer(),
       backgroundColor: Colors.white,
       body: Container(
         width: double.infinity,
@@ -31,8 +31,8 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: const EdgeInsets.symmetric(vertical: 24.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const <Widget>[
-                  Text(
+                children: <Widget>[
+                  const Text(
                     "FriendlyEats",
                     style: TextStyle(
                       color: Colors.black,
@@ -40,10 +40,15 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Icon(
-                    Icons.shopping_cart,
-                    color: Colors.black,
-                    size: 36,
+                  InkWell(
+                    onTap: () {
+                      scaffoldKey.currentState!.openEndDrawer();
+                    },
+                    child: const Icon(
+                      Icons.shopping_cart,
+                      color: Colors.black,
+                      size: 36,
+                    ),
                   ),
                 ],
               ),
