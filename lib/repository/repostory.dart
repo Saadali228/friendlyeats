@@ -8,9 +8,12 @@ class Repository {
   Repository(this._dataProvider);
 
   Future<List<Product>> getProducts() async {
-    DataProvider? _dataProvider;
-    var _productsList = await _dataProvider!.getProducts();
-    return _productsList;
+    var _productsList = await _dataProvider.getProducts();
+    if(_productsList.isEmpty) {
+     await _dataProvider.intializeProducts();
+      _productsList = await _dataProvider.getProducts();
+    }
+      return _productsList;
   }
 
   Future<void> addProducts() async {

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'package:friendlyeats/json_data/product.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'models/products.dart';
 import 'models/reviews.dart';
@@ -7,18 +8,14 @@ import 'models/reviews.dart';
 class DataProvider {
   Future<void> intializeProducts() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String response =
-        await rootBundle.loadString('lib/json_data/product.json');
-    final list = await json.decode(response);
-    var jsonList = list.map((e) => e.toJson()).toList();
-    var encodedList = json.encode(jsonList);
-    await prefs.setString('productList', encodedList);
+    await prefs.setString('productList', json.encode(mapData));
   }
 
   Future<List<Product>> getProducts() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userPref = prefs.getString('productList');
-    final map = json.decode(userPref!) as List;
+    if(userPref == null) return [];
+    final map = json.decode(userPref) as List;
     final list = map.map((e) => Product.fromJson(e)).toList();
     return list;
   }
