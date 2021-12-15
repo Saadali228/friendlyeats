@@ -70,7 +70,8 @@ class DataProvider {
   Future<List<Product>> getCartProducts() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userPref = prefs.getString('cartList');
-    final map = json.decode(userPref!) as List;
+    if(userPref == null) return [];
+    final map = json.decode(userPref) as List;
     final list = map.map((e) => Product.fromJson(e)).toList();
     return list;
   }
@@ -81,17 +82,18 @@ class DataProvider {
     if (userPref != null) {
       final map = json.decode(userPref) as List;
       final cartList = map.map((e) => Product.fromJson(e)).toList();
-      cartList.remove(product);
-      final carJson = cartList.map((e) => e.toJson()).toList();
-      var encodedList = json.encode(carJson);
-      await prefs.setString('cartList', encodedList);
-    } else {
-      List<Product> cartList = [];
-      cartList.remove(product);
+      cartList.removeWhere((ae)=> ae.id == product.id);
       final carJson = cartList.map((e) => e.toJson()).toList();
       var encodedList = json.encode(carJson);
       await prefs.setString('cartList', encodedList);
     }
+    // else {
+    //   List<Product> cartList = [];
+    //   cartList.remove(product);
+    //   final carJson = cartList.map((e) => e.toJson()).toList();
+    //   var encodedList = json.encode(carJson);
+    //   await prefs.setString('cartList', encodedList);
+    // }
   }
 
   Future<void> updateCartProduct(Product product, bool isAdd) async {

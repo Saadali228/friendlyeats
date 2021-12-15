@@ -26,9 +26,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     });
 
     on<AddProduct>((event, emit) async {
-      emit(
-        state.copyWith(addToCartStatus: AddToCartStatus.loading),
-      );
       try {
         await repository.addToCart(event.product);
         List<Product> newCartList = [];
@@ -78,19 +75,32 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     });
 
     on<DeleteProduct>((event, emit) async {
-      emit(
-        state.copyWith(cartStatus: CartStatus.loading),
-      );
       try {
         await repository.deleteProductFromCart(event.product);
         final newCartList = state.cartList;
         newCartList.remove(event.product);
         emit(
-          state.copyWith(cartList: newCartList, cartStatus: CartStatus.loaded),
+          state.copyWith(
+              cartList: newCartList,
+              deleteFromCartStatus: DeleteFromCartStatus.loaded),
         );
       } catch (_) {
-        emit(state.copyWith(cartStatus: CartStatus.error));
+        emit(
+          state.copyWith(deleteFromCartStatus: DeleteFromCartStatus.error),
+        );
       }
+    });
+
+    on<AddCartInitial>((event, emit) async {
+      emit(
+        state.copyWith(addToCartStatus: AddToCartStatus.initial),
+      );
+    });
+
+    on<DeleteCartInitial>((event, emit) async {
+      emit(
+        state.copyWith(deleteFromCartStatus: DeleteFromCartStatus.initial),
+      );
     });
   }
 }

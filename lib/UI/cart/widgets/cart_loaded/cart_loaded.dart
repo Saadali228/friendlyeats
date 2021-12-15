@@ -14,22 +14,26 @@ class CartLoaded extends StatelessWidget {
       return const Text('Cart is Empty!', style: TextStyle(fontSize: 64));
     }
     return BlocListener<CartBloc, CartState>(
+      listenWhen: (previous, current) =>
+          previous.deleteFromCartStatus != current.deleteFromCartStatus,
       listener: (context, state) {
-        if (state.cartStatus == CartStatus.loaded) {
+        if (state.deleteFromCartStatus == DeleteFromCartStatus.loaded) {
           Scaffold.of(context).showSnackBar(
             const SnackBar(
               content: Text('Item Removed'),
               duration: Duration(milliseconds: 300),
             ),
           );
+          context.read<CartBloc>().add(DeleteCartInitial());
         }
-        if (state.cartStatus == CartStatus.error) {
+        if (state.deleteFromCartStatus == DeleteFromCartStatus.error) {
           Scaffold.of(context).showSnackBar(
             const SnackBar(
               content: Text('Item Not Removed'),
               duration: Duration(milliseconds: 300),
             ),
           );
+          context.read<CartBloc>().add(DeleteCartInitial());
         }
       },
       child: ListView.builder(
@@ -39,8 +43,8 @@ class CartLoaded extends StatelessWidget {
           return CartList(
             item: cartList[index],
             onDelete: () => context.read<CartBloc>().add(
-              DeleteProduct(cartList[index]),
-            ),
+                  DeleteProduct(cartList[index]),
+                ),
           );
         },
       ),

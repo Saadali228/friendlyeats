@@ -8,15 +8,18 @@ class ProductGrid extends StatelessWidget {
   final Product item;
   final Function() onAddToCart;
 
+  Color hexToColor(String code) {
+    return Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {},
       child: Container(
-       // color: item.color,
-        decoration: const BoxDecoration(
-          // color: item.color,
-          borderRadius: BorderRadius.all(
+        decoration: BoxDecoration(
+          color: hexToColor(item.color),
+          borderRadius: const BorderRadius.all(
             Radius.circular(25),
           ),
         ),

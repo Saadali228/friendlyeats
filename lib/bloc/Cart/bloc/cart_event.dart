@@ -39,3 +39,13 @@ class DeleteProduct extends CartEvent {
   @override
   List<Object?> get props => [];
 }
+
+class AddCartInitial extends CartEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+class DeleteCartInitial extends CartEvent {
+  @override
+  List<Object?> get props => [];
+}

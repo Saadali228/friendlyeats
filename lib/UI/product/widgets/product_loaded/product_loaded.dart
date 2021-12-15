@@ -15,6 +15,8 @@ class ProductLoaded extends StatelessWidget {
       return const Text('Products are Empty!', style: TextStyle(fontSize: 64));
     }
     return BlocListener<CartBloc, CartState>(
+      listenWhen: (previous, current) =>
+          previous.addToCartStatus != current.addToCartStatus,
       listener: (context, state) {
         if (state.addToCartStatus == AddToCartStatus.loaded) {
           Scaffold.of(context).showSnackBar(
@@ -23,6 +25,7 @@ class ProductLoaded extends StatelessWidget {
               duration: Duration(milliseconds: 300),
             ),
           );
+          context.read<CartBloc>().add(AddCartInitial());
         }
         if (state.addToCartStatus == AddToCartStatus.error) {
           Scaffold.of(context).showSnackBar(
@@ -31,13 +34,14 @@ class ProductLoaded extends StatelessWidget {
               duration: Duration(milliseconds: 300),
             ),
           );
+          context.read<CartBloc>().add(AddCartInitial());
         }
       },
       child: Expanded(
         child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
             childAspectRatio: 1.4 / 1.5,
-            crossAxisCount: 4,
+            maxCrossAxisExtent: 350,
             crossAxisSpacing: 30,
             mainAxisSpacing: 30,
           ),
