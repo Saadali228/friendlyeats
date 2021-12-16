@@ -41,10 +41,10 @@ class ProductGrid extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    "In Stock " + item.qty.toString(),
+                  const Text(
+                    "In Stock 99",
                     textAlign: TextAlign.left,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.black,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

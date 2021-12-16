@@ -54,7 +54,14 @@ class DataProvider {
     if (userPref != null) {
       final map = json.decode(userPref) as List;
       final cartList = map.map((e) => Product.fromJson(e)).toList();
-      cartList.add(product);
+    //  cartList.removeWhere((ae)=> ae.id == product.id);
+      bool incrementProduct = cartList.any((element) => element.id == product.id);
+      print(incrementProduct);
+      if(incrementProduct) {
+        incrementCartProduct(product);
+      } else {
+        cartList.add(product);
+      }
       final carJson = cartList.map((e) => e.toJson()).toList();
       var encodedList = json.encode(carJson);
       await prefs.setString('cartList', encodedList);
@@ -96,19 +103,33 @@ class DataProvider {
     // }
   }
 
-  Future<void> updateCartProduct(Product product, bool isAdd) async {
+  Future<void> incrementCartProduct(Product product) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userPref = prefs.getString('cartList');
     if (userPref != null) {
       final map = json.decode(userPref) as List;
       final cartList = map.map((e) => Product.fromJson(e)).toList();
-      int index = cartList.indexOf(product);
-      // final id = cartList.indexWhere((element) => element.id == pid);
-      if (isAdd) cartList[index].qty++;
-      if (!isAdd) cartList[index].qty--;
-      final carJson = cartList.map((e) => e.toJson());
+      // int index = cartList.indexOf(product);
+      final index = cartList.indexWhere((element) => element.id == product.id);
+      cartList[index].qty++;
+      final carJson = cartList.map((e) => e.toJson()).toList();
       var encodedList = json.encode(carJson);
       await prefs.setString('cartList', encodedList);
     }
   }
+
+  Future<void> decrementCartProduct(Product product) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userPref = prefs.getString('cartList');
+    if (userPref != null) {
+      final map = json.decode(userPref) as List;
+      final cartList = map.map((e) => Product.fromJson(e)).toList();
+      final index = cartList.indexWhere((element) => element.id == product.id);
+      cartList[index].qty--;
+      final carJson = cartList.map((e) => e.toJson()).toList();
+      var encodedList = json.encode(carJson);
+      await prefs.setString('cartList', encodedList);
+    }
+  }
+
 }

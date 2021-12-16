@@ -37,7 +37,7 @@ class CartList extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "In Stock " + item.qty.toString(),
+                  "Quantity: ${item.qty}",
                   textAlign: TextAlign.left,
                   style: const TextStyle(
                     color: Colors.black,
