@@ -10,6 +10,8 @@ import 'package:friendlyeats/UI/product/widgets/product_loading.dart';
 import 'package:friendlyeats/bloc/Product/bloc/product_bloc.dart';
 import 'package:friendlyeats/data_layer/models/products.dart';
 
+import 'Review/review_loading.dart';
+
 var scaffoldKey = GlobalKey<ScaffoldState>();
 
 class MyHomePage extends StatelessWidget {
@@ -60,7 +62,7 @@ class MyHomePage extends StatelessWidget {
                     context.read<ProductBloc>().add(FetchProduct());
                     return const ProductInitial();
                   case ProductStatus.loading:
-                    return const ProductLoading();
+                    return const ReviewLoading();
                   case ProductStatus.loaded:
                     return ProductLoaded(
                       productList: state.productList,

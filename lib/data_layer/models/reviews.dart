@@ -1,6 +1,6 @@
 class Review {
-  final int id;
-  final String message;
+  late final int id;
+  late final String message;
   final int rating;
 
   Review({required this.id, required this.message, required this.rating});

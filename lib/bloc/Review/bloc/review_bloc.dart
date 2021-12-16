@@ -10,20 +10,20 @@ part 'review_state.dart';
 class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
   final Repository repository;
   ReviewBloc(this.repository) : super(ReviewState()) {
-    on<ReviewEvent>(
+    on<FetchReview>(
       (event, emit) async {
         emit(state.copyWith(reviewStatus: ReviewStatus.loading));
-        try {
-          final reviewList = await repository.getReviews();
-          emit(state.copyWith(
-              reviewStatus: ReviewStatus.loaded, reviewList: reviewList));
-        } catch (_) {
-          emit(state.copyWith(reviewStatus: ReviewStatus.error));
-        }
+        // try {
+        final reviewList = await repository.getReviews();
+        emit(state.copyWith(
+            reviewStatus: ReviewStatus.loaded, reviewList: reviewList));
+        // } catch (_) {
+        //   emit(state.copyWith(reviewStatus: ReviewStatus.error));
+        // }
       },
     );
     on<AddReview>((event, emit) async {
-      emit(state.copyWith(reviewStatus: ReviewStatus.loading));
+      // emit(state.copyWith(reviewStatus: ReviewStatus.loading));
       try {
         await repository.addReview(event.review);
         final newReviewList = state.reviewList;

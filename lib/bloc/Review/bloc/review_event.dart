@@ -1,7 +1,10 @@
 part of 'review_bloc.dart';
 
-@immutable
-abstract class ReviewEvent extends Equatable {}
+class ReviewEvent extends Equatable {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
 
 class FetchReview extends ReviewEvent {
   @override
