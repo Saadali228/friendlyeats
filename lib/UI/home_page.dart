@@ -62,7 +62,7 @@ class MyHomePage extends StatelessWidget {
                     context.read<ProductBloc>().add(FetchProduct());
                     return const ProductInitial();
                   case ProductStatus.loading:
-                    return const ReviewLoading();
+                    return const ProductLoading();
                   case ProductStatus.loaded:
                     return ProductLoaded(
                       productList: state.productList,
