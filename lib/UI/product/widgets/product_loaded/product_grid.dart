@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:friendlyeats/UI/product_detail/product_detail.dart';
 import 'package:friendlyeats/bloc/Cart/bloc/cart_bloc.dart';
 import 'package:friendlyeats/data_layer/models/products.dart';
 
 class ProductGrid extends StatelessWidget {
-  const ProductGrid({Key? key, required this.item,required this.onAddToCart}) : super(key: key);
+  const ProductGrid({Key? key, required this.item, required this.onAddToCart})
+      : super(key: key);
   final Product item;
   final Function() onAddToCart;
 
@@ -15,7 +17,17 @@ class ProductGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute<void>(
+            builder: (BuildContext context) => ProductDetailScreen(
+              item: item,
+              onAddToCart: onAddToCart,
+            ),
+          ),
+        );
+      },
       child: Container(
         decoration: BoxDecoration(
           color: hexToColor(item.color),
@@ -81,41 +93,41 @@ class ProductGrid extends StatelessWidget {
                 height: 8.0,
               ),
               InkWell(
-                  onTap: onAddToCart,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.1),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(25),
-                      ),
+                onTap: onAddToCart,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.1),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(25),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const <Widget>[
-                          Text(
-                            "Add to cart",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 8.0,
-                          ),
-                          Icon(
-                            Icons.add_shopping_cart,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const <Widget>[
+                        Text(
+                          "Add to cart",
+                          style: TextStyle(
                             color: Colors.black,
-                            size: 16,
-                          )
-                        ],
-                      ),
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 8.0,
+                        ),
+                        Icon(
+                          Icons.add_shopping_cart,
+                          color: Colors.black,
+                          size: 16,
+                        )
+                      ],
                     ),
                   ),
                 ),
+              ),
             ],
           ),
         ),

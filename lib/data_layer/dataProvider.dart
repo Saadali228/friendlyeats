@@ -14,7 +14,7 @@ class DataProvider {
   Future<List<Product>> getProducts() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userPref = prefs.getString('productList');
-    if(userPref == null) return [];
+    if (userPref == null) return [];
     final map = json.decode(userPref) as List;
     final list = map.map((e) => Product.fromJson(e)).toList();
     return list;
@@ -25,17 +25,19 @@ class DataProvider {
     String? userPref = prefs.getString('reviewList');
 
     if (userPref != null) {
+      print('in not null');
       final map = json.decode(userPref) as List;
       final reviewList = map.map((e) => Review.fromJson(e)).toList();
       reviewList.add(review);
-      final reviewJson = reviewList.map((e) => e.toJson());
+      final reviewJson = reviewList.map((e) => e.toJson()).toList();
       var encodedList = json.encode(reviewJson);
       await prefs.setString('reviewList', encodedList);
     } else {
       List<Review> reviewList = [];
       reviewList.add(review);
-      final reviewJson = reviewList.map((e) => e.toJson());
+      final reviewJson = reviewList.map((e) => e.toJson()).toList();
       var encodedList = json.encode(reviewJson);
+
       await prefs.setString('reviewList', encodedList);
     }
   }
@@ -43,7 +45,8 @@ class DataProvider {
   Future<List<Review>> getReviews() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userPref = prefs.getString('reviewList');
-    final map = json.decode(userPref!) as List;
+    if (userPref == null) return [];
+    final map = json.decode(userPref) as List;
     final list = map.map((e) => Review.fromJson(e)).toList();
     return list;
   }
@@ -77,7 +80,7 @@ class DataProvider {
   Future<List<Product>> getCartProducts() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userPref = prefs.getString('cartList');
-    if(userPref == null) return [];
+    if (userPref == null) return [];
     final map = json.decode(userPref) as List;
     final list = map.map((e) => Product.fromJson(e)).toList();
     return list;
@@ -89,7 +92,7 @@ class DataProvider {
     if (userPref != null) {
       final map = json.decode(userPref) as List;
       final cartList = map.map((e) => Product.fromJson(e)).toList();
-      cartList.removeWhere((ae)=> ae.id == product.id);
+      cartList.removeWhere((ae) => ae.id == product.id);
       final carJson = cartList.map((e) => e.toJson()).toList();
       var encodedList = json.encode(carJson);
       await prefs.setString('cartList', encodedList);

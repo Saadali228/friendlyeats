@@ -9,11 +9,11 @@ class Repository {
 
   Future<List<Product>> getProducts() async {
     var _productsList = await _dataProvider.getProducts();
-    if(_productsList.isEmpty) {
-     await _dataProvider.intializeProducts();
+    if (_productsList.isEmpty) {
+      await _dataProvider.intializeProducts();
       _productsList = await _dataProvider.getProducts();
     }
-      return _productsList;
+    return _productsList;
   }
 
   Future<void> addProducts() async {
