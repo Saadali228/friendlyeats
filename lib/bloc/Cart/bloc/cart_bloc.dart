@@ -28,24 +28,31 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<AddProduct>((event, emit) async {
       try {
         await repository.addToCart(event.product);
-        List<Product> newCartList = [];
-        state.cartList.map((e) => newCartList.add(e)).toList();
-        newCartList.add(event.product);
-        emit(
-          state.copyWith(
-              cartList: newCartList, addToCartStatus: AddToCartStatus.loaded),
-        );
+        if(state.cartList.any((element) => element.id == event.product.id)){
+          final newCartList = state.cartList;
+          int index = newCartList.indexWhere((e)=> event.product.id == e.id);
+          newCartList[index].qty++;
+          emit(
+            state.copyWith(cartList: newCartList, addToCartStatus: AddToCartStatus.loaded),
+          );
+        }else{
+          List<Product> newCartList = [];
+          state.cartList.map((e) => newCartList.add(e)).toList();
+          newCartList.add(event.product);
+          emit(
+            state.copyWith(
+                cartList: newCartList, addToCartStatus: AddToCartStatus.loaded),
+          );
+        }
+
       } catch (_) {
         emit(state.copyWith(addToCartStatus: AddToCartStatus.error));
       }
     });
 
     on<IncrementQuantity>((event, emit) async {
-      emit(
-        state.copyWith(cartStatus: CartStatus.loading),
-      );
       try {
-        await repository.updateCartProduct(event.product, event.isAdd);
+        await repository.incrementCartProduct(event.product);
         final newCartList = state.cartList;
         int index = newCartList.indexOf(event.product);
         newCartList[index] = event.product;
@@ -58,11 +65,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     });
 
     on<DecrementQuantity>((event, emit) async {
-      emit(
-        state.copyWith(cartStatus: CartStatus.loading),
-      );
       try {
-        await repository.updateCartProduct(event.product, event.isAdd);
+        await repository.decrementCartProduct(event.product);
         final newCartList = state.cartList;
         int index = newCartList.indexOf(event.product);
         newCartList[index] = event.product;

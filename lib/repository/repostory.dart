@@ -44,7 +44,11 @@ class Repository {
     await _dataProvider.deleteProductFromCart(product);
   }
 
-  Future<void> updateCartProduct(Product product, bool isAdd) async {
-    await _dataProvider.updateCartProduct(product, isAdd);
+  Future<void> incrementCartProduct(Product product) async {
+    await _dataProvider.incrementCartProduct(product);
+  }
+
+  Future<void> decrementCartProduct(Product product) async {
+    await _dataProvider.decrementCartProduct(product);
   }
 }
