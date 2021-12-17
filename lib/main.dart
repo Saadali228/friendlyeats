@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:friendlyeats/UI/home_page.dart';
-import 'package:friendlyeats/UI/item.dart';
-import 'package:friendlyeats/UI/item_description.dart';
-import 'package:friendlyeats/bloc/Cart/bloc/cart_bloc.dart';
-import 'package:friendlyeats/bloc/Product/bloc/product_bloc.dart';
-import 'package:friendlyeats/bloc/Review/bloc/review_bloc.dart';
-import 'package:friendlyeats/data_layer/dataProvider.dart';
-import 'package:friendlyeats/repository/repostory.dart';
+
 import 'package:google_fonts/google_fonts.dart';
+
+import 'cart/bloc/cart_bloc.dart';
+import 'product/bloc/product_bloc.dart';
+import 'product/pages/home_page.dart';
+import 'review/bloc/review_bloc.dart';
 
 void main() {
   DataProvider _dataProvider = DataProvider();
