@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
-class Cart extends Equatable {
+class CartRepoModel extends Equatable {
   final int id;
   final String name;
   final int qty;
   final num price;
   final num totalPrice;
 
-  const Cart({
+  const CartRepoModel({
     required this.id,
     required this.name,
     required this.price,
@@ -30,7 +30,7 @@ class Cart extends Equatable {
     };
   }
 
-  factory Cart.fromJson(Map<String, dynamic> map) => Cart(
+  factory CartRepoModel.fromJson(Map<String, dynamic> map) => CartRepoModel(
         id: map['id'],
         name: map['name'],
         price: map['price'],

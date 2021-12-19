@@ -1,23 +1,23 @@
 import 'package:equatable/equatable.dart';
 
-class Cart extends Equatable {
+class CartDataModel extends Equatable {
   final int id;
   final String name;
   final int qty;
   final num price;
   final num totalPrice;
 
-  const Cart({
+  const CartDataModel({
     required this.id,
     required this.name,
     required this.price,
     required this.qty,
     required this.totalPrice,
   });
-  // Cart copyWith({
+  // CartDataModel copyWith({
   //   num subTotal,
   // }) {
-  //   return Cart();
+  //   return CartDataModel();
   // }
 
   Map<String, dynamic> toJson() {
@@ -30,7 +30,7 @@ class Cart extends Equatable {
     };
   }
 
-  factory Cart.fromJson(Map<String, dynamic> map) => Cart(
+  factory CartDataModel.fromJson(Map<String, dynamic> map) => CartDataModel(
         id: map['id'],
         name: map['name'],
         price: map['price'],

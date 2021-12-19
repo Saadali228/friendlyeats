@@ -1,20 +1,20 @@
-import 'package:friendlyeats/product/data_layer/models/product_data_model.dart';
 import 'package:friendlyeats/product/data_layer/product_data_layer.dart';
+import 'package:friendlyeats/product/repository/models/product_repository_model.dart';
 
 class ProductRepository {
   final ProductProvider _dataProvider;
 
+  Future<void> initializeProducts() async {
+    await _dataProvider.initializeProducts();
+  }
+  
   ProductRepository(this._dataProvider);
-  Future<List<Product>> getProducts() async {
+  Future<List<ProductRepoModel>> getProducts() async {
     var _productsList = await _dataProvider.getProducts();
     if (_productsList.isEmpty) {
-      await _dataProvider.intializeProducts();
+      await _dataProvider.initializeProducts();
       _productsList = await _dataProvider.getProducts();
     }
     return _productsList;
-  }
-
-  Future<void> addProducts() async {
-    await _dataProvider.intializeProducts();
   }
 }

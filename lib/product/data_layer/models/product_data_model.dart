@@ -1,6 +1,5 @@
-import 'dart:ui';
 
-class Product {
+class ProductDataModel {
   final int id;
   final String name;
   final num price;
@@ -9,7 +8,7 @@ class Product {
   final int rating;
   final String photoUrl;
 
-  Product({
+  ProductDataModel({
     required this.id,
     required this.name,
     required this.price,
@@ -31,8 +30,8 @@ class Product {
     };
   }
 
-  factory Product.fromJson(Map<String, dynamic> map) {
-    return Product(
+  factory ProductDataModel.fromJson(Map<String, dynamic> map) {
+    return ProductDataModel(
       id: map['id'],
       name: map['name'],
       price: map['price'],

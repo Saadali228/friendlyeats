@@ -6,7 +6,7 @@ import 'package:friendlyeats/product/repository/models/product_repository_model.
 class ProductGrid extends StatelessWidget {
   const ProductGrid({Key? key, required this.item, required this.onAddToCart})
       : super(key: key);
-  final Product item;
+  final ProductRepoModel item;
   final Function() onAddToCart;
 
   Color hexToColor(String code) {

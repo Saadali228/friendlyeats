@@ -6,7 +6,7 @@ import 'package:friendlyeats/product/repository/models/product_repository_model.
 
 class CartLoaded extends StatelessWidget {
   const CartLoaded({Key? key, required this.cartList}) : super(key: key);
-  final List<Product> cartList;
+  final List<ProductRepoModel> cartList;
 
   @override
   Widget build(BuildContext context) {

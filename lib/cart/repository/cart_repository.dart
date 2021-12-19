@@ -1,28 +1,28 @@
 import 'package:friendlyeats/cart/data_layer/cart_data_layer.dart';
-import 'package:friendlyeats/product/data_layer/models/product_data_model.dart';
+import 'package:friendlyeats/product/repository/models/product_repository_model.dart';
 
 class CartRepository{
     final CartProvider _dataProvider;
 
   CartRepository(this._dataProvider);
-  Future<void> addToCart(Product product) async {
+  Future<void> addToCart(ProductRepoModel product) async {
     await _dataProvider.addToCart(product);
   }
 
-  Future<List<Product>> getCartProducts() async {
+  Future<List<ProductRepoModel>> getCartProducts() async {
     final list = await _dataProvider.getCartProducts();
     return list;
   }
 
-  Future<void> deleteProductFromCart(Product product) async {
+  Future<void> deleteProductFromCart(ProductRepoModel product) async {
     await _dataProvider.deleteProductFromCart(product);
   }
 
-  Future<void> incrementCartProduct(Product product) async {
+  Future<void> incrementCartProduct(ProductRepoModel product) async {
     await _dataProvider.incrementCartProduct(product);
   }
 
-  Future<void> decrementCartProduct(Product product) async {
+  Future<void> decrementCartProduct(ProductRepoModel product) async {
     await _dataProvider.decrementCartProduct(product);
   }
 }

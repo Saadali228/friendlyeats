@@ -6,7 +6,7 @@ enum DeleteFromCartStatus { initial, loaded, error }
 
 class CartState {
   final CartStatus cartStatus;
-  final List<Product> cartList;
+  final List<ProductRepoModel> cartList;
   final AddToCartStatus addToCartStatus;
   final DeleteFromCartStatus deleteFromCartStatus;
 
@@ -19,7 +19,7 @@ class CartState {
 
   CartState copyWith({
     CartStatus? cartStatus,
-    List<Product>? cartList,
+    List<ProductRepoModel>? cartList,
     AddToCartStatus? addToCartStatus,
     DeleteFromCartStatus? deleteFromCartStatus,
   }) {
