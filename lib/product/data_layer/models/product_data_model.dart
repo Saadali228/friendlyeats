@@ -37,7 +37,7 @@ class ProductDataModel {
       price: map['price'],
       color: map['color'],
       qty: map['qty'] == null ? 1 : map['qty'],
-      rating: map['rating'],
+      rating: map['rating'] ?? 0,
       photoUrl: map['photoUrl'],
     );
   }
