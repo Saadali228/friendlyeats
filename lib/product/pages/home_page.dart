@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:friendlyeats/product/bloc/product_bloc.dart';
-
 import '../../cart/pages/cart_page.dart';
-import 'widgets/product_error.dart';
-import 'widgets/product_initial.dart';
-import 'widgets/product_loaded/product_loaded.dart';
-import 'widgets/product_loading.dart';
-
-
+import 'product_page.dart';
 
 var scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -57,7 +51,9 @@ class MyHomePage extends StatelessWidget {
               builder: (context, state) {
                 switch (state.productState) {
                   case ProductStatus.initial:
-                    context.read<ProductBloc>().add(FetchProduct());
+                    context.read<ProductBloc>().add(
+                          FetchProduct(),
+                        );
                     return const ProductInitial();
                   case ProductStatus.loading:
                     return const ProductLoading();
@@ -77,6 +73,54 @@ class MyHomePage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ProductInitial extends StatelessWidget {
+  const ProductInitial({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: const [
+        Text('Products are Empty!', style: TextStyle(fontSize: 64)),
+      ],
+    );
+  }
+}
+
+class ProductLoading extends StatelessWidget {
+  const ProductLoading({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: const [
+        Padding(
+          padding: EdgeInsets.all(16.0),
+          child: CircularProgressIndicator(),
+        ),
+      ],
+    );
+  }
+}
+
+class ProductError extends StatelessWidget {
+  const ProductError({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: const [
+        Text('Something went wrong!', style: TextStyle(fontSize: 64)),
+      ],
     );
   }
 }

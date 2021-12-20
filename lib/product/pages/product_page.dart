@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:friendlyeats/cart/bloc/cart_bloc.dart';
-import 'package:friendlyeats/product/pages/widgets/product_loaded/product_grid.dart';
+import 'package:friendlyeats/product/pages/widgets/product_grid.dart';
 import 'package:friendlyeats/product/repository/models/product_repository_model.dart';
 
 class ProductLoaded extends StatelessWidget {

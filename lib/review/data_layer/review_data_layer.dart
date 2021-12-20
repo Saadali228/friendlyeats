@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:friendlyeats/review/repository/models/review_repository_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'models/review_data_model.dart';
@@ -10,17 +11,28 @@ class ReviewProvider {
     String? userPref = prefs.getString('reviewList');
 
     if (userPref != null) {
-      print('in not null');
       final map = json.decode(userPref) as List;
-      final reviewList = map.map((e) => ReviewDataModel.fromJson(e)).toList();
+      final reviewList = map
+          .map(
+            (e) => ReviewDataModel.fromJson(e),
+          )
+          .toList();
       reviewList.add(review);
-      final reviewJson = reviewList.map((e) => e.toJson()).toList();
+      final reviewJson = reviewList
+          .map(
+            (e) => e.toJson(),
+          )
+          .toList();
       var encodedList = json.encode(reviewJson);
       await prefs.setString('reviewList', encodedList);
     } else {
       List<ReviewDataModel> reviewList = [];
       reviewList.add(review);
-      final reviewJson = reviewList.map((e) => e.toJson()).toList();
+      final reviewJson = reviewList
+          .map(
+            (e) => e.toJson(),
+          )
+          .toList();
       var encodedList = json.encode(reviewJson);
 
       await prefs.setString('reviewList', encodedList);
