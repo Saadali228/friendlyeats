@@ -3,11 +3,11 @@ import 'package:equatable/equatable.dart';
 class CartRepoModel extends Equatable {
   final int id;
   final String name;
-  final int qty;
+  int qty;
   final num price;
-  final num totalPrice;
+   num totalPrice;
 
-  const CartRepoModel({
+  CartRepoModel({
     required this.id,
     required this.name,
     required this.price,

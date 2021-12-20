@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:friendlyeats/product/repository/models/product_repository_model.dart';
-
+import 'package:friendlyeats/cart/repository/models/cart_repository_model.dart';
 
 class CartItem extends StatelessWidget {
   const CartItem({Key? key, required this.item, required this.onDelete})
       : super(key: key);
-  final ProductRepoModel item;
+  final CartRepoModel item;
   final Function() onDelete;
 
   @override

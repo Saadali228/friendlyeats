@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:friendlyeats/cart/repository/cart_repository.dart';
+import 'package:friendlyeats/cart/repository/models/cart_repository_model.dart';
 import 'package:friendlyeats/product/repository/models/product_repository_model.dart';
-
 
 part 'cart_event.dart';
 
@@ -33,12 +33,14 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           final newCartList = state.cartList;
           int index = newCartList.indexWhere((e) => event.product.id == e.id);
           newCartList[index].qty++;
+          newCartList[index].totalPrice =
+              newCartList[index].qty * newCartList[index].price;
           emit(
             state.copyWith(
                 cartList: newCartList, addToCartStatus: AddToCartStatus.loaded),
           );
         } else {
-          List<ProductRepoModel> newCartList = [];
+          List<CartRepoModel> newCartList = [];
           state.cartList.map((e) => newCartList.add(e)).toList();
           newCartList.add(event.product);
           emit(

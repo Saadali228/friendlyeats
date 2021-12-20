@@ -11,14 +11,14 @@ class DisplayProducts extends CartEvent {
 }
 
 class AddProduct extends CartEvent {
-  final ProductRepoModel product;
+  final CartRepoModel product;
   AddProduct(this.product);
   @override
   List<Object?> get props => [];
 }
 
 class IncrementQuantity extends CartEvent {
-  final ProductRepoModel product;
+  final CartRepoModel product;
   final bool isAdd;
   IncrementQuantity({required this.product, this.isAdd = true});
   @override
@@ -26,7 +26,7 @@ class IncrementQuantity extends CartEvent {
 }
 
 class DecrementQuantity extends CartEvent {
-  final ProductRepoModel product;
+  final CartRepoModel product;
   final bool isAdd;
   DecrementQuantity({required this.product, this.isAdd = false});
   @override
@@ -34,7 +34,7 @@ class DecrementQuantity extends CartEvent {
 }
 
 class DeleteProduct extends CartEvent {
-  final ProductRepoModel product;
+  final CartRepoModel product;
   DeleteProduct(this.product);
   @override
   List<Object?> get props => [];
@@ -46,6 +46,14 @@ class AddCartInitial extends CartEvent {
 }
 
 class DeleteCartInitial extends CartEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+class SubTotal extends CartEvent {
+  final CartRepoModel product;
+
+  SubTotal(this.product);
   @override
   List<Object?> get props => [];
 }

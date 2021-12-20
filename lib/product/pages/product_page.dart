@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:friendlyeats/cart/bloc/cart_bloc.dart';
+import 'package:friendlyeats/cart/repository/models/cart_repository_model.dart';
 import 'package:friendlyeats/product/pages/widgets/product_grid.dart';
 import 'package:friendlyeats/product/repository/models/product_repository_model.dart';
 
@@ -50,7 +51,16 @@ class ProductLoaded extends StatelessWidget {
               item: productList[index],
               onAddToCart: () {
                 context.read<CartBloc>().add(
-                      AddProduct(productList[index]),
+                      AddProduct(
+                        CartRepoModel(
+                          id: productList[index].id,
+                          name: productList[index].name,
+                          price: productList[index].price,
+                          qty: productList[index].qty,
+                          totalPrice:
+                              productList[index].qty * productList[index].price,
+                        ),
+                      ),
                     );
               },
             );
