@@ -4,12 +4,12 @@ enum ReviewStatus { initial, loading, loaded, error }
 
 class ReviewState {
   final ReviewStatus reviewStatus;
-  final List<Review> reviewList;
+  final List<ReviewRepoModel> reviewList;
   ReviewState({
     this.reviewStatus = ReviewStatus.initial,
     this.reviewList = const [],
   });
-  ReviewState copyWith({ReviewStatus? reviewStatus, List<Review>? reviewList}) {
+  ReviewState copyWith({ReviewStatus? reviewStatus, List<ReviewRepoModel>? reviewList}) {
     return ReviewState(
         reviewList: reviewList ?? this.reviewList,
         reviewStatus: reviewStatus ?? this.reviewStatus);

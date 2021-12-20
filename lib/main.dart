@@ -13,20 +13,6 @@ import 'cart/bloc/cart_bloc.dart';
 import 'product/bloc/product_bloc.dart';
 import 'product/pages/home_page.dart';
 import 'review/bloc/review_bloc.dart';
-// MultiRepositoryProvider(
-// providers: [
-// RepositoryProvider<RepositoryA>(
-// create: (context) => RepositoryA(),
-// ),
-// RepositoryProvider<RepositoryB>(
-// create: (context) => RepositoryB(),
-// ),
-// RepositoryProvider<RepositoryC>(
-// create: (context) => RepositoryC(),
-// ),
-// ],
-// child: ChildA(),
-// )
 void main() {
   ProductProvider _productProvider = ProductProvider();
   ProductRepository productRepository = ProductRepository(_productProvider);

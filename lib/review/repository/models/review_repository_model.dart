@@ -1,9 +1,9 @@
-class Review {
+class ReviewRepoModel {
   late final int id;
   late final String message;
   final int rating;
 
-  Review({required this.id, required this.message, required this.rating});
+  ReviewRepoModel({required this.id, required this.message, required this.rating});
 
   Map<String, dynamic> toJson() {
     return {
@@ -13,7 +13,7 @@ class Review {
     };
   }
 
-  factory Review.fromJson(Map<String, dynamic> map) => Review(
+  factory ReviewRepoModel.fromJson(Map<String, dynamic> map) => ReviewRepoModel(
         id: map['id'],
         message: map['message'],
         rating: map['rating'],

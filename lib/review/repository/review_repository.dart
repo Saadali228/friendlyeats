@@ -3,15 +3,22 @@ import 'package:friendlyeats/review/repository/models/review_repository_model.da
 
 class ReviewRepository {
   final ReviewProvider _dataProvider;
-
   ReviewRepository(this._dataProvider);
 
-  Future<List<Review>> getReviews() async {
+  Future<List<ReviewRepoModel>> getReviews() async {
     var _reviewsList = await _dataProvider.getReviews();
-    return _reviewsList;
+    return _reviewsList
+        .map(
+          (e) => ReviewRepoModel(
+            id: e.id,
+            message: e.message,
+            rating: e.rating,
+          ),
+        )
+        .toList();
   }
 
-  Future<void> addReview(Review review) async {
+  Future<void> addReview(ReviewRepoModel review) async {
     await _dataProvider.addReview(review);
   }
 }

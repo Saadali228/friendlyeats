@@ -26,13 +26,13 @@ class ProductDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void onCreateReviewPressed() async {
-      await showDialog<Review>(
+      await showDialog<ReviewRepoModel>(
         context: context,
         builder: (_) => ReviewCreateDialog(
           onSave: (id, message, rating) {
             context.read<ReviewBloc>().add(
                   AddReview(
-                    Review(id: id, message: message, rating: rating),
+                    ReviewRepoModel(id: id, message: message, rating: rating),
                   ),
                 );
             Navigator.pop(context);

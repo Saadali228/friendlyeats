@@ -12,7 +12,7 @@ class FetchReview extends ReviewEvent {
 }
 
 class AddReview extends ReviewEvent {
-  final Review review;
+  final ReviewRepoModel review;
   AddReview(this.review);
   @override
   List<Object?> get props => [];

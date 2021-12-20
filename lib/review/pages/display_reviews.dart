@@ -7,7 +7,7 @@ class RestaurantReview extends StatelessWidget {
     required this.review,
   }) : super(key: key);
 
-  final Review review;
+  final ReviewRepoModel review;
 
   @override
   Widget build(BuildContext context) {

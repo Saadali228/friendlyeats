@@ -5,7 +5,7 @@ import 'package:friendlyeats/review/repository/models/review_repository_model.da
 
 class ReviewLoaded extends StatelessWidget {
   const ReviewLoaded({Key? key, required this.reviewList}) : super(key: key);
-  final List<Review> reviewList;
+  final List<ReviewRepoModel> reviewList;
 
   @override
   Widget build(BuildContext context) {

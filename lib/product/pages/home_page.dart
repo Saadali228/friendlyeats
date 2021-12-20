@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:friendlyeats/product/bloc/product_bloc.dart';
 
-import 'drawer.dart';
+import '../../cart/pages/cart_page.dart';
 import 'widgets/product_error.dart';
 import 'widgets/product_initial.dart';
 import 'widgets/product_loaded/product_loaded.dart';
@@ -19,7 +19,7 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      endDrawer: const CustomDrawer(),
+      endDrawer: const CartDrawer(),
       backgroundColor: Colors.white,
       body: Container(
         width: double.infinity,
